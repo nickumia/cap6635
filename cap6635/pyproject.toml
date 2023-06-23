@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cap6635"
+version = "0.0.1"
+authors = [
+  { name="nickumia", email="nickumia6@gmail.com" },
+]
+description = "A Summary of AI Techniques covered in cap 6635"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/nickumia/cap6635"
+"Bug Tracker" = "https://github.com/nickumia/cap6635/issues"
