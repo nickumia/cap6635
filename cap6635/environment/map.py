@@ -23,8 +23,8 @@ class Map2D:
 
 class Carpet(Map2D):
     
-    def __init__(self):
-        super(Carpet, self).__init__()
+    def __init__(self, m=10, n=10):
+        super(Carpet, self).__init__(m,n)
         self.randomizeDirt()
         self.generateDirt()
 
@@ -40,3 +40,6 @@ class Carpet(Map2D):
                     self._map[x, y] = 2
                 else:
                     self._map[x, y] = 0
+
+    def dirtPresent(self):
+        return 2 in self._map

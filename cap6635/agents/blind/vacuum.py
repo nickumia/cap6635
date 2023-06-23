@@ -61,19 +61,19 @@ class SimpleVacuum(Vacuum):
             print("down")
             self._x += 1
             self.utility = -1
-        elif (action == 2): # go left
+        elif (action == 2):
             print("left")
             self._y -= 1
             self.utility = -1
-        elif (action == 3): # go right
+        elif (action == 3):
             print("right")
             self._y += 1
             self.utility = -1
-        elif (action == 4): # clean
+        elif (action == 4):
             print("clean")
             self._e.map[self._x][self._y] = 0
             self.utility = 10
-        elif (action == 6): # idle
+        elif (action == 6):
             print("idle")
             self.utility = 0
 

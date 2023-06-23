@@ -3,7 +3,7 @@ from cap6635.agents.blind.vacuum import SimpleVacuum
 from cap6635.environment.map import Carpet
 
 
-world = Carpet()
+world = Carpet(6,6)
 agent = SimpleVacuum(world)
 
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ import matplotlib
 matplotlib.use('TkAgg', force=True)
 
 
-while True:
+while world.dirtPresent():
     plt.text(0,0,"Time Elapsed:%d; Utility: %.1f"%(agent.time,agent.utility))
     plt.imshow(world.map, 'pink')
     plt.show(block=False)
@@ -22,3 +22,5 @@ while True:
     plt.pause(0.5)
     agent.move()
     plt.clf()
+
+print('All dirt has been cleaned :)')
