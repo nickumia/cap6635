@@ -8,6 +8,7 @@ class Map2D:
         self._x = m
         self._y = n
         self._map = np.zeros((m, n))
+        self.buildWall()
 
     def buildWall(self):
         self._map[:, 0] = 1

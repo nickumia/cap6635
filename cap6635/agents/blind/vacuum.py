@@ -4,7 +4,7 @@ import random
 
 class Vacuum:
 
-    def __init__(self, environ, start=(0,0)):
+    def __init__(self, environ, start=(1,1)):
         self._e = environ
         self._x = start[0]
         self._y = start[1]
