@@ -24,8 +24,8 @@ class Vacuum:
         return self._time
 
     @time.setter
-    def time(self):
-        self._time += 1
+    def time(self, val):
+        self._time += val
 
 
 class SimpleVacuum(Vacuum):
@@ -78,7 +78,7 @@ class SimpleVacuum(Vacuum):
             self.utility = 0
 
         self.add_to_path((self._x, self._y))
-        self.time
+        self.time = 1
 
     @property
     def x_path(self):
