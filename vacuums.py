@@ -1,10 +1,11 @@
 
-from cap6635.agents.blind.vacuum import SimpleVacuum
+from cap6635.agents.blind.vacuum import SimpleVacuum, ModelVacuum
 from cap6635.environment.map import Carpet
 
 
 world = Carpet(6,6)
-agent = SimpleVacuum(world)
+# agent = SimpleVacuum(world)
+agent = ModelVacuum(world)
 
 import matplotlib.pyplot as plt
 import matplotlib
@@ -16,7 +17,6 @@ while world.dirtPresent():
     plt.imshow(world.map, 'pink')
     plt.show(block=False)
     plt.plot(agent.y_path,agent.x_path,'r:',linewidth=1)
-    print(agent.y_path,agent.x_path)
     if len(agent.x_path) > 0:
         plt.plot(agent.y_path[-1], agent.x_path[-1], '*r', 'Robot field', 5)
     plt.pause(0.5)
