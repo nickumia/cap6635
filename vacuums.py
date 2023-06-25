@@ -3,7 +3,7 @@ from cap6635.agents.blind.vacuum import SimpleVacuum, ModelVacuum
 from cap6635.environment.map import Carpet
 
 
-world = Carpet(6,6)
+world = Carpet(5,5)
 # agent = SimpleVacuum(world)
 agent = ModelVacuum(world)
 
@@ -24,3 +24,4 @@ while world.dirtPresent():
     plt.clf()
 
 print('All dirt has been cleaned :)')
+print('Agent time: %d, utility: %d' % (agent.time, agent.utility))

@@ -1,6 +1,11 @@
 
 import random
 
+from cap6635.utilities.constants import (
+    MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT,
+    MOVE_CLEAN, MOVE_STOP, MOVE_IDLE
+)
+
 
 class Vacuum:
 
@@ -33,27 +38,27 @@ class Vacuum:
         action = self.clean()
         if not action:
             action = self.chooseMove()
-        if (action == 0):
+        if (action == MOVE_UP):
             print("up")
             self._x -= 1
             self.utility = -1
-        elif (action == 1):
+        elif (action == MOVE_DOWN):
             print("down")
             self._x += 1
             self.utility = -1
-        elif (action == 2):
+        elif (action == MOVE_LEFT):
             print("left")
             self._y -= 1
             self.utility = -1
-        elif (action == 3):
+        elif (action == MOVE_RIGHT):
             print("right")
             self._y += 1
             self.utility = -1
-        elif (action == 4):
+        elif (action == MOVE_CLEAN):
             print("clean")
             self._e.map[self._x][self._y] = 0
             self.utility = 10
-        elif (action == 6):
+        elif (action == MOVE_IDLE):
             print("idle")
             self.utility = 0
 
@@ -62,7 +67,7 @@ class Vacuum:
 
     def clean(self):
         if self._e.map[self._x][self._y] == 2:
-            return 4
+            return MOVE_CLEAN
 
     @property
     def x_path(self):
@@ -80,15 +85,15 @@ class Vacuum:
 class SimpleVacuum(Vacuum):
 
     def chooseMove(self):
-        actions = [0, 1, 2, 3, 6]
+        actions = [MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_IDLE]
         if self._x == 1:
-            actions.remove(0)
+            actions.remove(MOVE_UP)
         if self._x == self._e._x-2:
-            actions.remove(1)
+            actions.remove(MOVE_DOWN)
         if self._y == 1:
-            actions.remove(2)
+            actions.remove(MOVE_LEFT)
         if self._y == self._e._y-2:
-            actions.remove(3)
+            actions.remove(MOVE_RIGHT)
 
         return random.choice(actions)
 
@@ -102,21 +107,21 @@ class ModelVacuum(Vacuum):
             if self._e._x % 2 == 0:
                 # stop at the top
                 if self._x == 1:
-                    return 5
+                    return MOVE_STOP
             else:
                 # stop at the bottom
                 if self._x == self._e._x-2:
-                    return 5
-        # odd columns, move down
+                    return MOVE_STOP
+        # odd columns
         if self._y % 2 == 1:
-            # bottom tile, move right
+            # bottom tile
             if self._x == self._e._x-2:
-                return 3
-            return 1
-        # even columns, move up
+                return MOVE_RIGHT
+            return MOVE_DOWN
+        # even columns
         if self._y % 2 == 0:
-            # top tile, move right
+            # top tile
             if self._x == 1:
-                return 3
-            return 0
+                return MOVE_RIGHT
+            return MOVE_UP
 
