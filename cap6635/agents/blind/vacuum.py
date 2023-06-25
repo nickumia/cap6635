@@ -3,7 +3,8 @@ import random
 
 from cap6635.utilities.constants import (
     MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT,
-    MOVE_CLEAN, MOVE_STOP, MOVE_IDLE
+    MOVE_CLEAN, MOVE_STOP, MOVE_IDLE,
+    STATE_DIRTY
 )
 
 
@@ -66,7 +67,7 @@ class Vacuum:
         self.time = 1
 
     def clean(self):
-        if self._e.map[self._x][self._y] == 2:
+        if self._e.map[self._x][self._y] == STATE_DIRTY:
             return MOVE_CLEAN
 
     @property

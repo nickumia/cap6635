@@ -2,6 +2,10 @@
 import numpy as np
 import random
 
+from cap6635.utilities.constants import (
+    STATE_CLEAN, STATE_DIRTY, STATE_OBSTACLE
+)
+
 
 class Map2D:
     def __init__(self, m=10, n=10):
@@ -11,10 +15,10 @@ class Map2D:
         self.buildWall()
 
     def buildWall(self):
-        self._map[:, 0] = 1
-        self._map[0, :] = 1
-        self._map[-1, :] = 1
-        self._map[:, -1] = 1
+        self._map[:, 0] = STATE_OBSTACLE
+        self._map[0, :] = STATE_OBSTACLE
+        self._map[-1, :] = STATE_OBSTACLE
+        self._map[:, -1] = STATE_OBSTACLE
 
     @property
     def map(self):
@@ -37,9 +41,9 @@ class Carpet(Map2D):
         for x in range(1, self._x-1):
             for y in range(1, self._y-1):
                 if (random.random()<self._map[x, y]):
-                    self._map[x, y] = 2
+                    self._map[x, y] = STATE_DIRTY
                 else:
-                    self._map[x, y] = 0
+                    self._map[x, y] = STATE_CLEAN
 
     def dirtPresent(self):
-        return 2 in self._map
+        return STATE_DIRTY in self._map
