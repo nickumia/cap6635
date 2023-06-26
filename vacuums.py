@@ -1,12 +1,12 @@
 
 from cap6635.agents.blind.vacuum import (
-    SimpleVacuum, ModelVacuum, GoalVacuum
+    ReflexVacuum, ModelVacuum, GoalVacuum
 )
 from cap6635.environment.map import Carpet
 
 
 world = Carpet(6,6)
-# agent = SimpleVacuum(world)
+# agent = ReflexVacuum(world)
 # agent = ModelVacuum(world)
 agent = GoalVacuum(world)
 

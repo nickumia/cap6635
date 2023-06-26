@@ -98,7 +98,7 @@ class Vacuum:
         self._y_path.append(point[1])
 
 
-class SimpleVacuum(Vacuum):
+class ReflexVacuum(Vacuum):
 
     def chooseMove(self):
         actions = [MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_IDLE]
