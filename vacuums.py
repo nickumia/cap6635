@@ -1,11 +1,14 @@
 
-from cap6635.agents.blind.vacuum import SimpleVacuum, ModelVacuum
+from cap6635.agents.blind.vacuum import (
+    SimpleVacuum, ModelVacuum, GoalVacuum
+)
 from cap6635.environment.map import Carpet
 
 
-world = Carpet(5,5)
+world = Carpet(6,6)
 # agent = SimpleVacuum(world)
-agent = ModelVacuum(world)
+# agent = ModelVacuum(world)
+agent = GoalVacuum(world)
 
 import matplotlib.pyplot as plt
 import matplotlib

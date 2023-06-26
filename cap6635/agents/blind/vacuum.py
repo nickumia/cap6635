@@ -1,11 +1,14 @@
 
+from copy import deepcopy
 import random
 
 from cap6635.utilities.constants import (
     MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT,
-    MOVE_CLEAN, MOVE_STOP, MOVE_IDLE,
-    STATE_DIRTY
+    MOVE_CLEAN, MOVE_STOP, MOVE_IDLE, MOVE_UNKNOWN,
+    STATE_DIRTY, STATE_VISITED
 )
+from cap6635.utilities.node import SearchPoint
+from cap6635.utilities.location import Location
 
 
 class Vacuum:
@@ -35,36 +38,48 @@ class Vacuum:
     def time(self, val):
         self._time += val
 
-    def move(self):
-        action = self.clean()
-        if not action:
-            action = self.chooseMove()
-        if (action == MOVE_UP):
-            print("up")
-            self._x -= 1
-            self.utility = -1
-        elif (action == MOVE_DOWN):
-            print("down")
-            self._x += 1
-            self.utility = -1
-        elif (action == MOVE_LEFT):
-            print("left")
-            self._y -= 1
-            self.utility = -1
-        elif (action == MOVE_RIGHT):
-            print("right")
-            self._y += 1
-            self.utility = -1
-        elif (action == MOVE_CLEAN):
-            print("clean")
-            self._e.map[self._x][self._y] = 0
-            self.utility = 10
-        elif (action == MOVE_IDLE):
-            print("idle")
-            self.utility = 0
+    def buildPath(self, action):
+        return [action]
 
-        self.add_to_path((self._x, self._y))
-        self.time = 1
+    def move(self):
+        action = self.chooseMove()
+        actions = self.buildPath(action)
+
+        first = self.clean()
+        if first is not None:
+            actions = self.buildPath(first)
+
+        while len(actions) > 0:
+            next_move = actions.pop(0)
+            if (next_move == MOVE_UP):
+                print("up")
+                self._x -= 1
+                self.utility = -1
+            elif (next_move == MOVE_DOWN):
+                print("down")
+                self._x += 1
+                self.utility = -1
+            elif (next_move == MOVE_LEFT):
+                print("left")
+                self._y -= 1
+                self.utility = -1
+            elif (next_move == MOVE_RIGHT):
+                print("right")
+                self._y += 1
+                self.utility = -1
+            elif (next_move == MOVE_CLEAN):
+                print("clean")
+                self._e.map[self._x][self._y] = 0
+                self.utility = 10
+            elif (next_move == MOVE_IDLE):
+                print("idle")
+                self.utility = 0
+
+            self.add_to_path((self._x, self._y))
+            self.time = 1
+
+        self.search = 1
+        self.stack = SearchPoint((Location(self._x, self._y), MOVE_CLEAN))
 
     def clean(self):
         if self._e.map[self._x][self._y] == STATE_DIRTY:
@@ -126,3 +141,81 @@ class ModelVacuum(Vacuum):
                 return MOVE_RIGHT
             return MOVE_UP
 
+
+class GoalVacuum(Vacuum):
+
+    def __init__(self, environ, start=(1,1)):
+        super(GoalVacuum, self).__init__(environ, start)
+        self._stack = [SearchPoint((Location(start[0], start[1]), MOVE_CLEAN))]
+        self._search_map = deepcopy(self._e.map)
+
+    @property
+    def stack(self):
+        return self._stack
+
+    @stack.setter
+    def stack(self, val):
+        self._stack = [val]
+
+    @property
+    def search(self):
+        return self._search_map
+
+    @search.setter
+    def search(self, val):
+        if val == 1:
+            self._search_map = deepcopy(self._e.map)
+
+    def moveable(self, x, y):
+        if self._e.map[x, y] == 1:
+            return False
+        return True
+
+    def visit(self, node):
+        position, action = node.data
+        if self._e.map[position.x, position.y] == STATE_DIRTY:
+            return True
+        if self._search_map[position.x, position.y] != STATE_VISITED:
+            self._stack.append(node)
+            self._search_map[position.x, position.y] = STATE_VISITED
+
+    def buildPath(self, node):
+        path = []
+        todo = node
+        while True:
+            position, action = todo.data
+            path.append(action)
+            if todo.parent is None:
+                break
+            todo = todo.parent
+
+        return path
+
+    def chooseMove(self):
+        while len(self._stack) != 0:
+            node = self._stack.pop(0)
+            position, action = node.data
+
+            # Looking left
+            if self.moveable(position.x, position.y-1):
+                new_node = SearchPoint((Location(position.x, position.y-1), MOVE_LEFT), node)
+                if self.visit(new_node):
+                    return new_node
+
+            # Looking right
+            if self.moveable(position.x, position.y+1):
+                new_node = SearchPoint((Location(position.x, position.y+1), MOVE_RIGHT), node)
+                if self.visit(new_node):
+                    return new_node
+
+            # Looking up
+            if self.moveable(position.x-1, position.y):
+                new_node = SearchPoint((Location(position.x-1, position.y), MOVE_UP), node)
+                if self.visit(new_node):
+                    return new_node
+
+            # Looking down
+            if self.moveable(position.x+1, position.y):
+                new_node = SearchPoint((Location(position.x+1, position.y), MOVE_DOWN), node)
+                if self.visit(new_node):
+                    return new_node
