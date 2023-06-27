@@ -5,13 +5,23 @@ import random
 from cap6635.utilities.constants import (
     MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT,
     MOVE_CLEAN, MOVE_STOP, MOVE_IDLE,
-    STATE_DIRTY, STATE_VISITED
+    STATE_DIRTY, STATE_VISITED, STATE_OBSTACLE
 )
 from cap6635.utilities.node import SearchPoint
 from cap6635.utilities.location import Location
 
 
 class Vacuum:
+    '''
+    Base Vacuum Class
+    - Tracks environment state
+    - (current) Vacuum x, y location
+    - (historical) Vacuum x, y path
+    - Time spent operating (one move = one unit of time)
+    - Utility (i.e. effectiveness at cleaning)
+        - (-1) for each move
+        - (+10) for cleaning a dirty spot
+    '''
 
     def __init__(self, environ, start=(1, 1)):
         self._e = environ
@@ -99,6 +109,12 @@ class Vacuum:
 
 
 class ReflexVacuum(Vacuum):
+    '''
+    Only unique element of Reflex Vacuum is random move choice
+    - May revisit past spots
+    - Random chance of moving to a dirty spot
+    - May not get to all dirty spots (not complete)
+    '''
 
     def chooseMove(self):
         actions = [MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_IDLE]
@@ -115,6 +131,12 @@ class ReflexVacuum(Vacuum):
 
 
 class ModelVacuum(Vacuum):
+    '''
+    Only unique element of Reflex Vacuum is structured move choice
+    - Will not revisit spots
+    - Guaranteed to move to every spot
+    - Will get to all dirty spots (complete)
+    '''
 
     def chooseMove(self):
         # last column
@@ -149,6 +171,13 @@ class ModelVacuum(Vacuum):
 
 
 class GoalVacuum(Vacuum):
+    '''
+    Looks for the nearest dirty spot favoring left, right, up then down.
+    - May revisit past spots if equidistant between two dirty spots
+    - Will find all dirty spots (complete)
+    - Local minimum optimal (i.e. the closest dirty spot may not lead
+        to the best overall path)
+    '''
 
     def __init__(self, environ, start=(1, 1)):
         super(GoalVacuum, self).__init__(environ, start)
@@ -173,7 +202,7 @@ class GoalVacuum(Vacuum):
             self._search_map = deepcopy(self._e.map)
 
     def moveable(self, x, y):
-        if self._e.map[x, y] == 1:
+        if self._e.map[x, y] == STATE_OBSTACLE:
             return False
         return True
 
