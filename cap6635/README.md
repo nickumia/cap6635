@@ -1,25 +1,31 @@
 # CAP6635 Artificial Intelligence
 A summary of the AI techniques explored in Dr. Zhu's AI class
 
-## AI Search Techniques
+## Structure of Package
 
-### Blind Methods
+- `cap6635.agents` define the different search and decision-making algorithms.
+    - See sub-directories for more details on the agents
+- `cap6635.environment` creates and populates the world with various obstacles or other states.
+- `cap6635.utilities` hosts various helper functions for searching, environment manipulation, animation and more.
 
-- Simple Reflex Agents: Agents react to environment based on pre-programmed rules
+### Development setup
 
-  ex. `ReflexVacuum`
-  - I will randomly choose a new location which may or may not have dirt and I may or may not have been to before
-  
-- Model-based Agents: Agents maintains an internal representation of the world.  Remembers it's own past actions. 
+```bash
+pip install -r requirements.txt cap6635
+```
 
-  ex. `ModelVacuum`
-  - My path is preprogrammed, I will not revisit locations
+## AI Examples
 
-- Goal-based Agents: Agents 'looks for' goal makes decisions based on a single utility function.
+### Vacuums
 
-  ex. `GoalVacuum`
-  - Where is the closest dirt?
+Run the `vacuums.py` example with the optional paramters.  The output gets saved as a `vacuum?.gif` animation.
 
-- Utility-based Agents
+```bash
+# Type of agent defaults to random type (if not provided)
+# 1 --> Simple Reflex Vacuum
+# 2 --> Model-based Vacuum
+# 3 --> Goal-based Vacuum
+# World Height & Width defaults to random int (if not provided)
 
-  TODO
+python vacuums.py [type_of_agent] [height_of_world] [width_of_world>]
+```
