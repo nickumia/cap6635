@@ -17,8 +17,8 @@ class Vacuum:
         self._e = environ
         self._x = start[0]
         self._y = start[1]
-        self._x_path = []
-        self._y_path = []
+        self._x_path = [self._x]
+        self._y_path = [self._y]
         self._utility = 0
         self._time = 0
 
@@ -47,7 +47,7 @@ class Vacuum:
 
         first = self.clean()
         if first is not None:
-            actions = self.buildPath(first)
+            actions = [first]
 
         while len(actions) > 0:
             next_move = actions.pop(0)
@@ -120,25 +120,31 @@ class ModelVacuum(Vacuum):
         # last column
         if self._y == self._e._y-2:
             # even # of columns
-            if self._e._x % 2 == 0:
+            if self._e._y % 2 == 0:
                 # stop at the top
                 if self._x == 1:
+                    print("stop")
                     return MOVE_STOP
             else:
                 # stop at the bottom
                 if self._x == self._e._x-2:
+                    print("stop")
                     return MOVE_STOP
         # odd columns
         if self._y % 2 == 1:
             # bottom tile
             if self._x == self._e._x-2:
+                print("right")
                 return MOVE_RIGHT
+            print("down")
             return MOVE_DOWN
         # even columns
         if self._y % 2 == 0:
             # top tile
             if self._x == 1:
+                print("right")
                 return MOVE_RIGHT
+            print("up")
             return MOVE_UP
 
 
