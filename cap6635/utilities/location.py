@@ -28,3 +28,11 @@ class Location:
     @z.setter
     def z(self, val):
         self._z = val
+
+
+def generateNumber(i):
+    max_length = 8
+    num_str = str(i)
+    digits = len(num_str)
+    zeros = max_length - digits
+    return '0'*zeros + num_str

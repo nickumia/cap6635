@@ -26,21 +26,21 @@ class Map2D:
 
 
 class Carpet(Map2D):
-    
+
     def __init__(self, m=10, n=10):
-        super(Carpet, self).__init__(m,n)
+        super(Carpet, self).__init__(m, n)
         self.randomizeDirt()
         self.generateDirt()
 
     def randomizeDirt(self):
         for x in range(1, self._x-1):
             for y in range(1, self._y-1):
-                self._map[x, y] = random.uniform(0.1,0.6)
+                self._map[x, y] = random.uniform(0.1, 0.6)
 
     def generateDirt(self):
         for x in range(1, self._x-1):
             for y in range(1, self._y-1):
-                if (random.random()<self._map[x, y]):
+                if random.random() < self._map[x, y]:
                     self._map[x, y] = STATE_DIRTY
                 else:
                     self._map[x, y] = STATE_CLEAN

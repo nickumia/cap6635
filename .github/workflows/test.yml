@@ -1,0 +1,49 @@
+---
+name: Vacuum Tests
+
+on:
+  push:
+
+
+jobs:
+  pylint:
+    name: Python lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: pip install -r requirements-dev.txt
+      - name: Lint
+        run: make lint
+
+  vacuum:
+    name: Vacuum Agents
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        agent_type: [1, 2, 3]
+        include:
+          - height: 10
+          - width: 10
+          - agent_type: 1
+            height: 5
+          - agent_type: 1
+            width: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Clean
+        run: python vacuums.py ${{matrix.agent_type}} ${{matrix.height}} ${{matrix.width}}
+      - name: Animation Output
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: animations
+          path: |
+            ./vacuum1.gif
+            ./vacuum2.gif
+            ./vacuum3.gif
