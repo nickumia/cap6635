@@ -4,7 +4,7 @@ import random
 
 from cap6635.utilities.constants import (
     MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT,
-    MOVE_CLEAN, MOVE_STOP, MOVE_IDLE, MOVE_UNKNOWN,
+    MOVE_CLEAN, MOVE_STOP, MOVE_IDLE,
     STATE_DIRTY, STATE_VISITED
 )
 from cap6635.utilities.node import SearchPoint
@@ -13,7 +13,7 @@ from cap6635.utilities.location import Location
 
 class Vacuum:
 
-    def __init__(self, environ, start=(1,1)):
+    def __init__(self, environ, start=(1, 1)):
         self._e = environ
         self._x = start[0]
         self._y = start[1]
@@ -144,7 +144,7 @@ class ModelVacuum(Vacuum):
 
 class GoalVacuum(Vacuum):
 
-    def __init__(self, environ, start=(1,1)):
+    def __init__(self, environ, start=(1, 1)):
         super(GoalVacuum, self).__init__(environ, start)
         self._stack = [SearchPoint((Location(start[0], start[1]), MOVE_CLEAN))]
         self._search_map = deepcopy(self._e.map)
@@ -198,24 +198,28 @@ class GoalVacuum(Vacuum):
 
             # Looking left
             if self.moveable(position.x, position.y-1):
-                new_node = SearchPoint((Location(position.x, position.y-1), MOVE_LEFT), node)
+                new_node = SearchPoint(
+                    (Location(position.x, position.y-1), MOVE_LEFT), node)
                 if self.visit(new_node):
                     return new_node
 
             # Looking right
             if self.moveable(position.x, position.y+1):
-                new_node = SearchPoint((Location(position.x, position.y+1), MOVE_RIGHT), node)
+                new_node = SearchPoint(
+                    (Location(position.x, position.y+1), MOVE_RIGHT), node)
                 if self.visit(new_node):
                     return new_node
 
             # Looking up
             if self.moveable(position.x-1, position.y):
-                new_node = SearchPoint((Location(position.x-1, position.y), MOVE_UP), node)
+                new_node = SearchPoint(
+                    (Location(position.x-1, position.y), MOVE_UP), node)
                 if self.visit(new_node):
                     return new_node
 
             # Looking down
             if self.moveable(position.x+1, position.y):
-                new_node = SearchPoint((Location(position.x+1, position.y), MOVE_DOWN), node)
+                new_node = SearchPoint(
+                    (Location(position.x+1, position.y), MOVE_DOWN), node)
                 if self.visit(new_node):
                     return new_node
