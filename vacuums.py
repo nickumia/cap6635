@@ -1,6 +1,5 @@
 
-import matplotlib.pyplot as plt
-import matplotlib
+import os
 import random
 import sys
 
@@ -8,15 +7,13 @@ from cap6635.agents.blind.vacuum import (
     ReflexVacuum, ModelVacuum, GoalVacuum
 )
 from cap6635.environment.map import Carpet
-
-
-matplotlib.use('TkAgg', force=True)
+from cap6635.utilities.plot import VacuumAnimator
 
 
 if len(sys.argv) > 1:
     agent_type = sys.argv[1]
 else:
-    agent_type = random.choice([1, 2, 3])
+    agent_type = random.choice(['1', '2', '3'])
 
 try:
     if len(sys.argv) == 4:
@@ -46,17 +43,18 @@ elif agent_type == '3':
 print('World dimensions (%d, %d)' % (world_height, world_width))
 print('Agent: %s' % (agent.__class__))
 
+i = 0
+
+animator = VacuumAnimator(os.getcwd(), '/vacuum.gif')
+animator.temp = '/temp/'
+animator.save_state(i, world, agent)
 while world.dirtPresent():
-    label = "Time Elapsed:%d; Utility: %.1f" % (agent.time, agent.utility)
-    plt.text(0, 0, label)
-    plt.imshow(world.map, 'pink')
-    plt.show(block=False)
-    plt.plot(agent.y_path, agent.x_path, 'r:', linewidth=1)
-    if len(agent.x_path) > 0:
-        plt.plot(agent.y_path[-1], agent.x_path[-1], '*r', 'Robot field', 5)
-    plt.pause(0.5)
+    i += 1
     agent.move()
-    plt.clf()
+    animator.save_state(i, world, agent)
+
+animator.make_gif()
+del animator.temp
 
 print('All dirt has been cleaned :)')
 print('Agent time: %d, utility: %d' % (agent.time, agent.utility))
