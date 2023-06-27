@@ -38,3 +38,12 @@ jobs:
         run: pip install -r requirements.txt
       - name: Clean
         run: python vacuums.py ${{matrix.agent_type}} ${{matrix.height}} ${{matrix.width}}
+      - name: Animation Output
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: animations
+          path: |
+            ./vacuum1.gif
+            ./vacuum2.gif
+            ./vacuum3.gif

@@ -45,7 +45,7 @@ print('Agent: %s' % (agent.__class__))
 
 i = 0
 
-animator = VacuumAnimator(os.getcwd(), '/vacuum.gif')
+animator = VacuumAnimator(os.getcwd(), '/vacuum%s.gif' % (agent_type))
 animator.temp = '/temp/'
 animator.save_state(i, world, agent)
 while world.dirtPresent():
