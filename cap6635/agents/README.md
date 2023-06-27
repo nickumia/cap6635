@@ -3,6 +3,8 @@
 
 ### Vacuums
 
+Code Adapted from Dr. Zhu's adaptation of: https://github.com/mawippel/python-vacuum
+
 - Simple Reflex Agents: Agents react to environment based on pre-programmed rules
 
   ex. `ReflexVacuum`
