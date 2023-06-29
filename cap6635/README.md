@@ -27,5 +27,5 @@ Run the `vacuums.py` example with the optional paramters.  The output gets saved
 # 3 --> Goal-based Vacuum
 # World Height & Width defaults to random int (if not provided)
 
-python vacuums.py [type_of_agent] [height_of_world] [width_of_world>]
+python vacuums.py [type_of_agent] [height_of_world] [width_of_world]
 ```

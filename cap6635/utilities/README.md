@@ -13,6 +13,8 @@
 ### Saving Matrix Animations
 - https://stackoverflow.com/a/69018855
   - Didn't work for me
+- https://stackoverflow.com/a/25143651
+  - Also didn't work
 - https://stackoverflow.com/a/9890599
   - Saving matplotlib figure as picture
 - https://stackoverflow.com/a/35943809
