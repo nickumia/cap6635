@@ -49,7 +49,7 @@ jobs:
             ./vacuum3.gif
 
   nqueens:
-    name: Vacuum Agents
+    name: Hill Climbing N-Queens Agents
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
