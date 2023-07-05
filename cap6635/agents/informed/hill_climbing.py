@@ -1,5 +1,6 @@
 
 from copy import deepcopy
+import random
 
 
 class HillClimbing():
@@ -16,7 +17,10 @@ class HillClimbing():
         self._cost = [self._board.total_tension(self._answer)]
 
     def climb(self):
-        for pair in self._board.successors():
+        pairs = self._board.successors()
+        for i in range(len(pairs)):
+            pair = random.choice(pairs)
+            pairs.remove(pair)
             new_position = deepcopy(self._answer)
             old_pair = new_position[pair[0]]
             new_position[pair[0]] = new_position[pair[1]]
