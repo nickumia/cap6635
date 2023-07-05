@@ -66,8 +66,10 @@ class QueensAnimator(Animator):
             ax1.vlines(pos, 0, n, color='k', linestyle='--')
             ax1.hlines(pos, 0, n, color='k', linestyle='--')
         for pos in np.linspace(-n, 2*n, 3*n*10+1):
-            ax1.axline((pos, 0), slope=1, color='k', linestyle='-', transform=ax1.transAxes)
-            ax1.axline((pos, 0), slope=-1, color='k', linestyle='-', transform=ax1.transAxes)
+            ax1.axline((pos, 0), slope=1,
+                       color='k', linestyle='-', transform=ax1.transAxes)
+            ax1.axline((pos, 0), slope=-1,
+                       color='k', linestyle='-', transform=ax1.transAxes)
         for i in range(n):
             for j in range(n):
                 if (i, j) in positions:
