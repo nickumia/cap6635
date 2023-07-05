@@ -10,7 +10,10 @@ from cap6635.environment.queens import NQueens
 from cap6635.utilities.plot import QueensAnimator
 
 
-board = NQueens(20)
+try:
+    board = NQueens(int(sys.argv[1]))
+except IndexError:
+    board = NQueens(random.randint(4, 30))
 agent = HillClimbing(board)
 
 last_cost = agent._cost
