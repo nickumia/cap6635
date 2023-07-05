@@ -27,5 +27,6 @@ class HillClimbing():
                 self._cost.append(new_cost)
                 if self._cost[-1] == 0:
                     self._solution_located = True
+                    self._board._chess_board = self._answer
                 self.climb()
         return "Failed"

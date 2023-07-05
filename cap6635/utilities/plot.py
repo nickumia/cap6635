@@ -2,6 +2,7 @@
 from cap6635.utilities.location import generateNumber
 
 import matplotlib.pyplot as plt
+import numpy as np
 import imageio
 import os
 import shutil
@@ -49,4 +50,35 @@ class VacuumAnimator(Animator):
         plt.plot(agent.y_path, agent.x_path, 'r:', linewidth=1)
         plt.plot(agent.y_path[-1], agent.x_path[-1], '*r', 'Robot field', 5)
         plt.savefig(self._temp_dir + '%s.png' % (generateNumber(i)))
+        plt.clf()
+
+
+class QueensAnimator(Animator):
+
+    def save_state(self, t, board, cost):
+        label = "Iteration: %d" % (t)
+        n = board._n
+        pretty = np.arange(n*n*3).reshape(n, n, 3)
+        positions = [(row, col) for row, col in board._chess_board.items()]
+
+        ax1 = plt.subplot(121)
+        for pos in np.linspace(-n, 2*n, 3*n+1):
+            ax1.vlines(pos, 0, n, color='k', linestyle='--')
+            ax1.hlines(pos, 0, n, color='k', linestyle='--')
+        for pos in np.linspace(-n, 2*n, 3*n*10+1):
+            ax1.axline((pos, 0), slope=1, color='k', linestyle='-', transform=ax1.transAxes)
+            ax1.axline((pos, 0), slope=-1, color='k', linestyle='-', transform=ax1.transAxes)
+        for i in range(n):
+            for j in range(n):
+                if (i, j) in positions:
+                    pretty[i][j] = (255, 0, 0)
+                else:
+                    pretty[i][j] = (255, 255, 255)
+        ax1.imshow(pretty)
+        ax2 = plt.subplot(122)
+        ax2.plot(cost)
+        ax2.set_xlabel('# of Moves')
+        ax2.set_ylabel('# of attacked Q pairs')
+        plt.title(label)
+        plt.savefig(self._temp_dir + '%s.png' % (generateNumber(t)))
         plt.clf()

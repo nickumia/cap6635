@@ -24,3 +24,6 @@
 
 ### Finding pairs between numbers
 - https://www.geeksforgeeks.org/python-all-possible-pairs-in-list/
+
+### Hill-climbing algorithms
+- https://www.geeksforgeeks.org/introduction-hill-climbing-artificial-intelligence/
