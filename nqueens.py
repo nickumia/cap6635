@@ -18,7 +18,7 @@ agent = HillClimbing(board)
 
 last_cost = agent._cost
 i = 0
-animator = QueensAnimator(os.getcwd(), '/hill_climbing.gif')
+animator = QueensAnimator(os.getcwd(), '/hill_climbing_%d.gif' % (board._n))
 animator.temp = '/temp/'
 animator.save_state(i, agent._board, agent._cost)
 while not agent._solution_located:

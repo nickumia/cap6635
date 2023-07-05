@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: animations
+          name: vacuums
           path: |
             ./vacuum1.gif
             ./vacuum2.gif
@@ -66,7 +66,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: animations
+          name: hill_climbing_queens
           path: |
             ./hill_climbing_8.gif
             ./hill_climbing_16.gif
