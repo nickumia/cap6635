@@ -25,11 +25,14 @@ animator.temp = '/temp/'
 animator.save_state(i, pop[-1], pop[-1].survival_rate)
 
 while agent.population[-1].survival_rate != 1:
+    print('=== Generation %d ===' % (i))
     agent.population = agent.evolve()
     costs = [i.survival_rate for i in pop]
-    animator.save_state(i, agent.population[-1], agent.population[-1].survival_rate)
+    animator.save_state(i, agent.population[-1],
+                        agent.population[-1].survival_rate)
     i += 1
-    print([(k.sequence, k.survival_rate) for k in agent.population])
+    print('Best Survivor: %0.2f' % (
+        max([k.survival_rate for k in agent.population])))
 
 animator.make_gif()
 del animator.temp
