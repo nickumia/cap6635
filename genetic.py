@@ -1,4 +1,5 @@
 
+import collections
 import os
 import random
 import sys
@@ -27,9 +28,9 @@ animator.save_state(i, pop[-1], pop[-1].survival_rate)
 while agent.population[-1].survival_rate != 1:
     print('=== Generation %d ===' % (i))
     agent.population = agent.evolve()
-    costs = [i.survival_rate for i in pop]
-    animator.save_state(i, agent.population[-1],
-                        agent.population[-1].survival_rate)
+    costs = collections.Counter([i.survival_rate for i in agent.population])
+    print(costs)
+    animator.save_state(i, agent.population[-1], costs, bar=True)
     i += 1
     print('Best Survivor: %0.2f' % (
         max([k.survival_rate for k in agent.population])))

@@ -55,7 +55,7 @@ class VacuumAnimator(Animator):
 
 class QueensAnimator(Animator):
 
-    def save_state(self, t, board, cost):
+    def save_state(self, t, board, cost, bar=False):
         label = "Iteration: %d" % (t)
         n = board._n
         pretty = np.arange(n*n*3).reshape(n, n, 3)
@@ -78,9 +78,13 @@ class QueensAnimator(Animator):
                     pretty[i][j] = (255, 255, 255)
         ax1.imshow(pretty)
         ax2 = plt.subplot(122)
-        ax2.plot(cost)
-        ax2.set_xlabel('# of Moves')
-        ax2.set_ylabel('# of attacked Q pairs')
+        if bar:
+            ax2.bar(cost.keys(), cost.values())
+            ax2.set_xlim(0, 1)
+        else:
+            ax2.plot(cost)
+            ax2.set_xlabel('# of Moves')
+            ax2.set_ylabel('# of attacked Q pairs')
         plt.title(label)
         plt.savefig(self._temp_dir + '%s.png' % (generateNumber(t)))
         plt.clf()
