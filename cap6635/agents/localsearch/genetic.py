@@ -22,17 +22,14 @@ class GeneticSearch:
 
     def best_chromosome(self, pop, x=2):
         survival_rates = [i.survival_rate for i in pop]
-        try:
-            # Order with the best survivors last
-            best_last = [x for _, x in sorted(zip(survival_rates, pop))]
-        except TypeError:
-            # None are better than each other
-            print("failed")
-            best_last = pop
-
-        if len(best_last) < x:
-            return best_last
-        return best_last[-x:]
+        populationWithProbabilty = zip(pop, survival_rates)
+        total = sum(w for c, w in populationWithProbabilty)
+        r = random.uniform(0, total)
+        upto = 0
+        for c, w in zip(pop, survival_rates):
+            if upto + w >= r:
+                return c
+            upto += w
 
     def reproduce(self, x, y):
         c = random.randint(0, x._n - 1)
@@ -48,24 +45,22 @@ class GeneticSearch:
 
     def mutate(self, x):
         # if perfect permutation, swap any random pair of queens
-        # print(x.permutation)
         if x.permutation == []:
-            c1 = random.randint(0, x._n - 1)
-            c2 = random.randint(0, x._n - 1)
+            c1 = random.randint(1, x._n)
+            c2 = random.randint(1, x._n)
             x.swap(c1, c2)
-            return x
 
     def evolve(self):
         new_pop = []
-        X, Y = self.best_chromosome(self._population)
-        print(X.sequence, Y.sequence)
         for j in range(self._generation_size):
+            X = self.best_chromosome(self._population)
+            Y = self.best_chromosome(self._population)
             child = self.reproduce(X, Y)
             if child.permutation:
                 self.fix_missing(child)
             elif random.random() < self._mutation_probability:
                 self.mutate(child)
             new_pop.append(child)
-            if child.survival_rate == self._perfect_form:
+            if child.survival_rate == 1:
                 return new_pop
         return new_pop

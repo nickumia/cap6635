@@ -17,7 +17,7 @@ except IndexError:
     board2 = NQueensGeneticEncoding(size)
 
 pop = [board, board2]
-agent = GeneticSearch(0.05, pop, gen_size=10)
+agent = GeneticSearch(0.05, pop, gen_size=100)
 
 i = 0
 animator = QueensAnimator(os.getcwd(), '/genetic_%d.gif' % (board._n))

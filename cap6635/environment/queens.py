@@ -65,8 +65,8 @@ class NQueensGeneticEncoding(NQueens):
         self._survival_rate = \
             (self._perfect_form - self.eval_cost(self._chess_board)) /\
             self._perfect_form
-        self._survival_rate += random.uniform(
-                math.pow(10, -10), math.pow(10, -20))
+        # self._survival_rate += random.uniform(
+        #         math.pow(10, -10), math.pow(10, -20))
 
     def convert_board(self):
         self._sequence = []
@@ -100,12 +100,14 @@ class NQueensGeneticEncoding(NQueens):
     def sequence(self, val):
         self._sequence = val
         for i, v in enumerate(val):
-            self._chess_board[i] = int(v)
+            self._chess_board[i+1] = int(v)
         self.compute_survival()
         self.compute_permutation()
 
     def swap(self, r1, r2):
-        self._sequence[r2] = self._chess_board[r1]
-        self._sequence[r1] = self._chess_board[r2]
-        self._chess_board[r1] = self._sequence[r1]
-        self._chess_board[r2] = self._sequence[r2]
+        self._sequence[r2-1] = self._chess_board[r1]
+        self._sequence[r1-1] = self._chess_board[r2]
+        self._chess_board[r1] = self._sequence[r1-1]
+        self._chess_board[r2] = self._sequence[r2-1]
+        self.compute_survival()
+        self.compute_permutation()
