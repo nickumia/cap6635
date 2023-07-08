@@ -30,7 +30,7 @@ class NQueens:
             return 1
         return 0
 
-    def total_tension(self, board):
+    def eval_cost(self, board):
         tension = 0
         indexes = [(col, row) for col, row in board.items()]
         for pair in list(combinations(indexes, 2)):

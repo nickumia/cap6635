@@ -13,12 +13,12 @@ class SimulatedAnnealing():
         self._starting_temperature = temperature
         self._t = self._starting_temperature
         self._cooling_rate = cooling_rate
-        self._cost = [self._board.total_tension(self._answer)]
+        self._cost = [self._board.eval_cost(self._answer)]
 
     def random_init(self):
         self._board.random_init()
         self._answer = self._board._chess_board
-        self._cost = [self._board.total_tension(self._answer)]
+        self._cost = [self._board.eval_cost(self._answer)]
         self._t = self._starting_temperature
 
     def anneal(self):
@@ -32,7 +32,7 @@ class SimulatedAnnealing():
                 old_pair = new_position[pair[0]]
                 new_position[pair[0]] = new_position[pair[1]]
                 new_position[pair[1]] = old_pair
-                new_cost = self._board.total_tension(new_position)
+                new_cost = self._board.eval_cost(new_position)
                 delta = new_cost - self._cost[-1]
                 if delta < 0 or (random.uniform(0, 1) < exp(-delta / self._t)):
                     self._answer = new_position
