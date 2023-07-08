@@ -49,12 +49,12 @@ jobs:
             ./vacuum3.gif
 
   nqueens:
-    name: Hill Climbing N-Queens Agents
+    name: ${{matrix.program}} N-Queens Agent
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        program: ['nqueens.py', 'simulated_annealing.py', 'genetic.py']
+        program: ['hill_climbing.py', 'simulated_annealing.py', 'genetic.py']
         n_queens: [8, 16, 32]
         exclude:
           - program: 'genetic.py'
