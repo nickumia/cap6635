@@ -29,3 +29,13 @@ Run the `vacuums.py` example with the optional paramters.  The output gets saved
 
 python vacuums.py [type_of_agent] [height_of_world] [width_of_world]
 ```
+
+### n-Queens
+
+```bash
+# Hill Climbing
+python nqueens.py [number_of_queens]
+
+# Simulated Annealing
+python simulated_annealing.py [number_of_queens]
+```

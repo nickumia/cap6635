@@ -42,8 +42,32 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: animations
+          name: vacuums
           path: |
             ./vacuum1.gif
             ./vacuum2.gif
             ./vacuum3.gif
+
+  nqueens:
+    name: Hill Climbing N-Queens Agents
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        n_queens: [8, 16, 32]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Clean
+        run: python nqueens.py ${{matrix.n_queens}}
+      - name: Animation Output
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: hill_climbing_queens
+          path: |
+            ./hill_climbing_8.gif
+            ./hill_climbing_16.gif
+            ./hill_climbing_32.gif

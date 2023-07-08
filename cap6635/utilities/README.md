@@ -21,3 +21,9 @@
   - Compiling pictures into a GIF
   - https://imageio.readthedocs.io/en/stable/_autosummary/imageio.v2.mimwrite.html
     - official docs
+
+### Finding pairs between numbers
+- https://www.geeksforgeeks.org/python-all-possible-pairs-in-list/
+
+### Hill-climbing algorithms
+- https://www.geeksforgeeks.org/introduction-hill-climbing-artificial-intelligence/
