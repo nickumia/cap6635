@@ -58,7 +58,7 @@ jobs:
         n_queens: [8, 16, 32]
         exclude:
           - program: 'genetic.py'
-          - n_queens: 32
+            n_queens: 32
     steps:
       - name: Checkout
         uses: actions/checkout@v2
