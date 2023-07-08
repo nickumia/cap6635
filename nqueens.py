@@ -3,7 +3,7 @@ import os
 import random
 import sys
 
-from cap6635.agents.informed.hill_climbing import HillClimbing
+from cap6635.agents.localsearch.hill_climbing import HillClimbing
 from cap6635.environment.queens import NQueens
 from cap6635.utilities.plot import QueensAnimator
 

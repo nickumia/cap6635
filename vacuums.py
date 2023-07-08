@@ -3,7 +3,7 @@ import os
 import random
 import sys
 
-from cap6635.agents.blind.vacuum import (
+from cap6635.agents.blindsearch.vacuum import (
     ReflexVacuum, ModelVacuum, GoalVacuum
 )
 from cap6635.environment.map import Carpet

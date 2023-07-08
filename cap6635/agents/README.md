@@ -24,6 +24,8 @@ Code Adapted from Dr. Zhu's adaptation of: https://github.com/mawippel/python-va
 
   (not yet implemented)
 
+## Local Search
+
 ### Hill Climbing + Simulated Annealing (n-Queens)
 
 Code Adapted from Dr. Zhu's adaptation of: https://github.com/TranDatDT/n-queens-simulated-annealing/blob/master/main.py
