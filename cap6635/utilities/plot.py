@@ -59,7 +59,7 @@ class QueensAnimator(Animator):
         label = "Iteration: %d" % (t)
         n = board._n
         pretty = np.arange(n*n*3).reshape(n, n, 3)
-        positions = [(row, col) for row, col in board._chess_board.items()]
+        positions = [(row-1, col-1) for row, col in board._chess_board.items()]
 
         ax1 = plt.subplot(121)
         for pos in np.linspace(-n, 2*n, 3*n+1):
