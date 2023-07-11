@@ -40,8 +40,10 @@ class GeneticSearch:
     def fix_missing(self, x):
         # if repeated queens, swap repeats with missing queens
         missing = set(range(1, x._n + 1)) - set(x.sequence)
+        old_seq = x.sequence
         for j in x.permutation:
-            x.sequence[j] = missing.pop()
+            old_seq[j] = missing.pop()
+        x.sequence = old_seq
 
     def mutate(self, x):
         # if perfect permutation, swap any random pair of queens
