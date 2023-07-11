@@ -30,6 +30,7 @@ while agent.population[-1].survival_rate != 1:
     agent.population = agent.evolve()
     costs = collections.Counter([i.survival_rate for i in agent.population])
     print(costs)
+    # animator.save_state(i, agent.population[-1], costs.values())
     animator.save_state(i, agent.population[-1], costs, bar=True)
     i += 1
     print('Best Survivor: %0.2f' % (
