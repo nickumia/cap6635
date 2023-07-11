@@ -55,6 +55,7 @@ class NQueensGeneticEncoding(NQueens):
 
     def compute_permutation(self):
         not_missing = set(self._sequence)
+        self._permutation = []
         for i, v in enumerate(self._sequence):
             if v in not_missing:
                 not_missing.remove(v)
