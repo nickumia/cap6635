@@ -3,7 +3,7 @@ import os
 import random
 import sys
 
-from cap6635.agents.informed.simulated_annealing import SimulatedAnnealing
+from cap6635.agents.localsearch.simulated_annealing import SimulatedAnnealing
 from cap6635.environment.queens import NQueens
 from cap6635.utilities.plot import QueensAnimator
 

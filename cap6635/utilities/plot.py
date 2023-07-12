@@ -55,13 +55,7 @@ class VacuumAnimator(Animator):
 
 class QueensAnimator(Animator):
 
-    def save_state(self, t, board, cost):
-        label = "Iteration: %d" % (t)
-        n = board._n
-        pretty = np.arange(n*n*3).reshape(n, n, 3)
-        positions = [(row, col) for row, col in board._chess_board.items()]
-
-        ax1 = plt.subplot(121)
+    def gen_grids(self, n, ax1):
         for pos in np.linspace(-n, 2*n, 3*n+1):
             ax1.vlines(pos, 0, n, color='k', linestyle='--')
             ax1.hlines(pos, 0, n, color='k', linestyle='--')
@@ -70,6 +64,15 @@ class QueensAnimator(Animator):
                        color='k', linestyle='-', transform=ax1.transAxes)
             ax1.axline((pos, 0), slope=-1,
                        color='k', linestyle='-', transform=ax1.transAxes)
+
+    def save_state(self, t, board, cost, bar=False):
+        label = "Iteration: %d" % (t)
+        n = board._n
+        pretty = np.arange(n*n*3).reshape(n, n, 3)
+        positions = [(row-1, col-1) for row, col in board._chess_board.items()]
+
+        ax1 = plt.subplot(121)
+        # self.gen_grids(n, ax1)
         for i in range(n):
             for j in range(n):
                 if (i, j) in positions:
@@ -78,9 +81,13 @@ class QueensAnimator(Animator):
                     pretty[i][j] = (255, 255, 255)
         ax1.imshow(pretty)
         ax2 = plt.subplot(122)
-        ax2.plot(cost)
-        ax2.set_xlabel('# of Moves')
-        ax2.set_ylabel('# of attacked Q pairs')
+        if bar:
+            ax2.bar(cost.keys(), cost.values())
+            ax2.set_xlim(0, 1)
+        else:
+            ax2.plot(cost)
+            ax2.set_xlabel('# of Moves')
+            ax2.set_ylabel('# of attacked Q pairs')
         plt.title(label)
         plt.savefig(self._temp_dir + '%s.png' % (generateNumber(t)))
         plt.clf()

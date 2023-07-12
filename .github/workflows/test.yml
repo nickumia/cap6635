@@ -49,25 +49,34 @@ jobs:
             ./vacuum3.gif
 
   nqueens:
-    name: Hill Climbing N-Queens Agents
+    name: ${{matrix.program}} N-Queens Agent
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        program: ['hill_climbing.py', 'simulated_annealing.py', 'genetic.py']
         n_queens: [8, 16, 32]
+        exclude:
+          - program: 'genetic.py'
+            n_queens: 32
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
         run: pip install -r requirements.txt
       - name: Clean
-        run: python nqueens.py ${{matrix.n_queens}}
+        run: python ${{matrix.program}} ${{matrix.n_queens}}
       - name: Animation Output
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: hill_climbing_queens
+          name: n_queens
           path: |
             ./hill_climbing_8.gif
             ./hill_climbing_16.gif
             ./hill_climbing_32.gif
+            ./simulated_annealing_8.gif
+            ./simulated_annealing_16.gif
+            ./simulated_annealing_32.gif
+            ./genetic_8.gif
+            ./genetic_16.gif
