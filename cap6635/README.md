@@ -34,8 +34,11 @@ python vacuums.py [type_of_agent] [height_of_world] [width_of_world]
 
 ```bash
 # Hill Climbing
-python nqueens.py [number_of_queens]
+python hill_climbing.py [number_of_queens]
 
 # Simulated Annealing
 python simulated_annealing.py [number_of_queens]
+
+# Genetic Algorithm
+python genetic.py [number_of_queens]
 ```
