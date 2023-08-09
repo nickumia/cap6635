@@ -28,7 +28,7 @@ jobs:
       # Generate hashes used for provenance.
       - name: generate hash
         id: hash
-        run: cd dist && echo "hash=$(sha256sum * | base64 -w0)" >> $GITHUB_OUTPUT
+        run: cd cap6635/dist && echo "hash=$(sha256sum * | base64 -w0)" >> $GITHUB_OUTPUT
       - uses: actions/upload-artifact@v3
         with:
           path: ./cap6635/dist
