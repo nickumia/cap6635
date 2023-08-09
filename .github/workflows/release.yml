@@ -65,6 +65,8 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/download-artifact@v3
+        with:
+          path: cap6625/dist/
       - name: Update setup.py if manual release
         if: github.event_name == 'workflow_dispatch'
         run: |
