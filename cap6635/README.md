@@ -1,4 +1,7 @@
 # CAP6635 Artificial Intelligence
+[![Tests](https://github.com/nickumia/cap6635/actions/workflows/test.yml/badge.svg)](https://github.com/nickumia/cap6635/actions/workflows/test.yml)
+[![PyPI version](https://badge.fury.io/py/cap6635.svg)](https://badge.fury.io/py/cap6635)
+
 A summary of the AI techniques explored in Dr. Zhu's AI class
 
 ## Structure of Package
