@@ -3,7 +3,8 @@ import numpy as np
 import random
 
 from cap6635.utilities.constants import (
-    STATE_CLEAN, STATE_DIRTY, STATE_OBSTACLE
+    STATE_CLEAN, STATE_DIRTY, STATE_OBSTACLE,
+    TTT_NONE, TTT_X, TTT_O
 )
 
 
@@ -47,3 +48,9 @@ class Carpet(Map2D):
 
     def dirtPresent(self):
         return STATE_DIRTY in self._map
+
+
+class TicTacToe(Map2D):
+
+    def __init__(self, x=3, y=3):
+        super(TicTacToe, self).__init__(m, n)
