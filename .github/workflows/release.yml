@@ -21,7 +21,7 @@ jobs:
       - name: Update setup.py if manual release
         if: github.event_name == 'workflow_dispatch'
         run: |
-          sed -i "s/version='[0-9]\{1,2\}.[0-9]\{1,4\}.[0-9]\{1,4\}',/version='${{github.event.inputs.version_no}}',/g" setup.py
+          sed -i "s/version='[0-9]\{1,2\}.[0-9]\{1,4\}.[0-9]\{1,4\}',/version='${{github.event.inputs.version_no}}',/g" cap6635/setup.py
       - name: Create packages
         run: |
           cd cap6635
