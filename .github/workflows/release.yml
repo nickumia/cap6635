@@ -70,11 +70,11 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          path: cap6635/dist/artifact
+          path: cap6635/dist/
       - name: pypi-publish
         uses: pypa/gh-action-pypi-publish@v1.8.8
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-          packages-dir: cap6635/dist/artifact
+          packages-dir: cap6635/dist/artifact/
 
