@@ -70,7 +70,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          path: cap6625/dist/
+          path: cap6635/dist/
       - name: pypi-publish
         uses: pypa/gh-action-pypi-publish@v1.8.8
         with:
