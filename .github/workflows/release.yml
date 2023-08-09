@@ -24,6 +24,7 @@ jobs:
           sed -i "s/version = \"[0-9]\{1,2\}.[0-9]\{1,4\}.[0-9]\{1,4\}\"/version = \"${{github.event.inputs.version_no}}\"/g" cap6635/pyproject.toml
       - name: Create packages
         run: |
+          python3 -m pip install build
           python3 -m build --sdist cap6635/
       - name: pypi-publish
         uses: pypa/gh-action-pypi-publish@v1.5.1
