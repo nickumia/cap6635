@@ -24,7 +24,7 @@ jobs:
       - name: Update pyproject.toml if manual release
         if: github.event_name == 'workflow_dispatch'
         run: |
-          sed -i "s/version = \"[0-9]\{1,2\}.[0-9]\{1,4\}.[0-9]\{1,4\}\"/version = \"${{github.event.inputs.version_no}}\"/g" cap6635/pyproject.toml
+          sed -i "s/version = \"[0-9]\{1,2\}.[0-9]\{1,4\}.[0-9]\{1,4\}\"/version = \"${{github.event.inputs.version_no}}\"/g" pyproject.toml
       - run: python -m pip install build
       # Use the commit date instead of the current date during the build.
       - run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
