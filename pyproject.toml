@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cap6635"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="nickumia", email="nickumia6@gmail.com" },
 ]
@@ -15,6 +15,14 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+]
+
+[tool.hatchling.module]
+name = "cap6635"
+
+[tool.hatchling.sdist]
+include = [
+  "cap6635/",
 ]
 
 [project.urls]
