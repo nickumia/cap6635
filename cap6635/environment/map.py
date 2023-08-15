@@ -53,4 +53,38 @@ class Carpet(Map2D):
 class TicTacToe(Map2D):
 
     def __init__(self, x=3, y=3):
-        super(TicTacToe, self).__init__(m, n)
+        super(TicTacToe, self).__init__(x, y)
+        self._win = False
+
+    @property
+    def win(self):
+        return self._win
+
+    def is_win(self):
+        # Vertical win
+        for y in range(0, 3):
+            if self.map[y] == [self.map[0][y]] * 3 and \
+               self.map[0][y] != TTT_NONE:
+                self.win = self.map[0][y]
+                return True
+
+        # Horizontal win
+        for x in range(0, 3):
+            if self.map[x][0] != TTT_NONE and \
+               self.map[x][0] == self.map[x][1] == self.map[x][2]:
+                self.win = self.map[x][0]
+                return True
+
+        # Diagonal win
+        if self.map[1][1] != TTT_NONE:
+            if self.map[0][0] == self.map[1][1] == self.map[2][2] or \
+               self.map[0][2] == self.map[1][1] == self.map[2][0]:
+                self.win = self.map[1][1]
+                return True
+
+        # Full board
+        if TTT_NONE not in self.map:
+            self.win = TTT_NONE
+            return True
+
+        return False
