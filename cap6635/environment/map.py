@@ -78,19 +78,19 @@ class TicTacToe(Map2D):
         return False
 
     def is_win(self):
-        # Vertical win
-        for y in range(0, self._x):
-            if (self.map[y] == [self.map[0][y]] * self._x).all() and \
-               self.map[0][y] != TTT_NONE:
-                self.win = self.map[0][y]
+        # Horizontal win
+        for x in range(0, self._x):
+            if (self.map[x] == [self.map[x][0]] * self._x).all() and \
+               self.map[x][0] != TTT_NONE:
+                self.win = self.map[x][0]
                 return True
 
-        # Horizontal win
+        # Vertical win
         # TODO: make this work for more than 3
-        for x in range(0, self._y):
-            if self.map[x][0] != TTT_NONE and \
-               self.map[x][0] == self.map[x][1] == self.map[x][2]:
-                self.win = self.map[x][0]
+        for y in range(0, self._y):
+            if self.map[0][y] != TTT_NONE and \
+               self.map[0][y] == self.map[1][y] == self.map[2][y]:
+                self.win = self.map[y][0]
                 return True
 
         # Diagonal win
