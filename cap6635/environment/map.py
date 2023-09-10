@@ -4,7 +4,7 @@ import random
 
 from cap6635.utilities.constants import (
     STATE_CLEAN, STATE_DIRTY, STATE_OBSTACLE,
-    TTT_NONE  # , TTT_X, TTT_O
+    TTT_NONE, TTT_X, TTT_O
 )
 
 
@@ -111,6 +111,13 @@ class TicTacToe(Map2D):
     def print_board(self):
         for i in range(0, self._x):
             for j in range(0, self._y):
-                print('{}|'.format(self.map[i][j]), end=" ")
+                char = ' '
+                if self.map[i][j] == TTT_X:
+                    char = 'X'
+                elif self.map[i][j] == TTT_O:
+                    char = 'O'
+                elif self.map[i][j] == TTT_NONE:
+                    char = '.'
+                print('{}|'.format(char), end=" ")
             print()
         print()
