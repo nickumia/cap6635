@@ -4,16 +4,17 @@ import random
 
 from cap6635.utilities.constants import (
     STATE_CLEAN, STATE_DIRTY, STATE_OBSTACLE,
-    TTT_NONE, TTT_X, TTT_O
+    TTT_NONE  # , TTT_X, TTT_O
 )
 
 
 class Map2D:
-    def __init__(self, m=10, n=10):
+    def __init__(self, m=10, n=10, wall=True):
         self._x = m
         self._y = n
         self._map = np.zeros((m, n))
-        self.buildWall()
+        if wall:
+            self.buildWall()
 
     def buildWall(self):
         self._map[:, 0] = STATE_OBSTACLE
@@ -53,17 +54,33 @@ class Carpet(Map2D):
 class TicTacToe(Map2D):
 
     def __init__(self, x=3, y=3):
-        super(TicTacToe, self).__init__(x, y)
+        super(TicTacToe, self).__init__(x, y, wall=False)
         self._win = False
 
     @property
     def win(self):
         return self._win
 
+    @win.setter
+    def win(self, v):
+        self._win = v
+
+    def is_empty(self, x, y):
+        if self.map[x, y] == TTT_NONE:
+            return True
+        return False
+
+    def is_valid(self, x, y):
+        if x >= 0 and x < self._x:
+            if y >= 0 and y < self._y:
+                if self.map[x, y] == TTT_NONE:
+                    return True
+        return False
+
     def is_win(self):
         # Vertical win
         for y in range(0, self._x):
-            if self.map[y] == [self.map[0][y]] * self._x and \
+            if (self.map[y] == [self.map[0][y]] * self._x).all() and \
                self.map[0][y] != TTT_NONE:
                 self.win = self.map[0][y]
                 return True
@@ -90,3 +107,10 @@ class TicTacToe(Map2D):
             return True
 
         return False
+
+    def print_board(self):
+        for i in range(0, self._x):
+            for j in range(0, self._y):
+                print('{}|'.format(self.map[i][j]), end=" ")
+            print()
+        print()
