@@ -31,7 +31,8 @@ def evaluate(agent):
     totalTime = totalTime + (end - start)
     print('Evaluation time: {}s'.format(round(end - start, 7)))
     print('Move: X = {}, Y = {}'.format(pqx, pqy))
-    # print('Can the computer win? %s' % (lambda x: 'YES' if x < 0 else 'NO')(m))
+    print('Can the computer win? %s' %
+          (lambda x: 'YES' if x < 0 else 'NO')(m))
     return (m, pqx, pqy)
 
 
