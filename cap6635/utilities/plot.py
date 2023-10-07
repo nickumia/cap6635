@@ -53,6 +53,15 @@ class VacuumAnimator(Animator):
         plt.clf()
 
 
+class MazeAnimator(Animator):
+
+    def save_state(self, i, maze, agent):
+        plt.imshow(maze.map, 'pink')
+        plt.plot(agent._y_path, agent._x_path, 'r:', linewidth=1)
+        plt.plot(agent._y_path[-1], agent._x_path[-1], '*r', 'Maze Runner', 5)
+        plt.savefig(self._temp_dir + '%s.png' % (generateNumber(i)))
+
+
 class QueensAnimator(Animator):
 
     def gen_grids(self, n, ax1):
