@@ -3,7 +3,7 @@ import random
 import sys
 import time
 
-from cap6635.agents.adversarialsearch.minimax import MiniMax
+from cap6635.agents.adversarialsearch.minimax import MiniMaxAlphaBeta
 from cap6635.environment.map import TicTacToe
 from cap6635.utilities.constants import TTT_NONE, TTT_X, TTT_O
 
@@ -23,15 +23,18 @@ except IndexError:
     auto = 0
 
 if starter == TTT_X:
-    agent = MiniMax(board, starter, TTT_O, TTT_NONE)
+    agent = MiniMaxAlphaBeta(board, starter, TTT_O, TTT_NONE)
 else:
-    agent = MiniMax(board, starter, TTT_X, TTT_NONE)
+    agent = MiniMaxAlphaBeta(board, starter, TTT_X, TTT_NONE)
 
 
 def evaluate(agent):
     global totalTime
     start = time.time()
-    (m, pqx, pqy) = agent()
+    if starter == TTT_X:
+        (m, pqx, pqy) = agent(-2, 2)
+    else:
+        (m, pqx, pqy) = agent(2, -2)
     end = time.time()
     totalTime = totalTime + (end - start)
     print('Evaluation time: {}s'.format(round(end - start, 7)))
