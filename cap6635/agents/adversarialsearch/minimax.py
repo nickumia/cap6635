@@ -1,4 +1,6 @@
 
+from cap6635.utilities.constants import TTT_X, TTT_O, TTT_NONE
+
 
 class MiniMax:
 
@@ -14,11 +16,12 @@ class MiniMax:
         # TODO: make this reward parameterized for more options
         self.count += 1
         # print(self.count)
-        if self._board.win == self._player:
-            return (1, 0, 0)
-        elif self._board.win == self._ai:
+        if self._board.win == TTT_X:
             return (-1, 0, 0)
-        return (0, 0, 0)
+        elif self._board.win == TTT_O:
+            return (1, 0, 0)
+        elif self._board.win == TTT_NONE:
+            return (0, 0, 0)
         # return (self._board.win, 0, 0)
 
     def _max(self):
