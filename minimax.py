@@ -58,8 +58,7 @@ while not agent._board.is_win():
 
     # O plays
     if starter == TTT_X:
-        if not agent._board.is_valid(pqx, pqy):
-            (m, pqx, pqy) = evaluate(agent._min)
+        (m, pqx, pqy) = evaluate(agent._min)
         agent._board.map[pqx, pqy] = TTT_O
     else:
         agent._board.print_board()
