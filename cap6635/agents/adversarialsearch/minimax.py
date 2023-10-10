@@ -25,7 +25,7 @@ class MiniMax:
             return (-1, 0, 0)
         return (0, 0, 0)
 
-    def max(self):
+    def max(self, dum1=0, dum2=0):
         # We're initially setting it to -2 as worse than the worst case:
         if self._player == TTT_X:
             ai = TTT_O
@@ -51,7 +51,7 @@ class MiniMax:
                     self._board.map[i][j] = TTT_NONE
         return (maxv, px, py)
 
-    def min(self):
+    def min(self, dum1=0, dum2=0):
         # We're initially setting it to 2 as worse than the worst case:
         if self._player == TTT_X:
             ai = TTT_X
