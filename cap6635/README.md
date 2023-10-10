@@ -45,3 +45,15 @@ python simulated_annealing.py [number_of_queens]
 # Genetic Algorithm
 python genetic.py [number_of_queens]
 ```
+
+### Tic Tac Toe
+
+```bash
+# Minimax + Alpha-Beta Pruning
+# Algorithm {1 --> Minimax, 0 --> Alpha-Beta Pruning}
+# First Player {1 --> Human, 2 --> AI}
+python minimax.py [Algorithm] [First Player]
+
+# e.g. Minimax (Alpha-Beta Pruning) - Player is X
+python minimax.py 0 1
+```
