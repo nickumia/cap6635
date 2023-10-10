@@ -77,3 +77,65 @@ class MiniMax:
                     self._board.map[i][j] = TTT_NONE
 
         return (minv, qx, qy)
+
+
+class MiniMaxAlphaBeta(MiniMax):
+
+    def __init__(self, board, player):
+        super(MiniMaxAlphaBeta, self).__init__(board, player)
+
+    def max(self, alpha, beta):
+        # We're initially setting it to -2 as worse than the worst case:
+        maxv = -2
+        ai = TTT_O if self._player == TTT_X else TTT_X
+
+        px = None
+        py = None
+
+        if self._board.is_win():
+            return self._win()
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self._board.map[i][j] == TTT_NONE:
+                    self._board.map[i][j] = ai
+                    (m, min_i, min_j) = self.min(alpha, beta)
+                    if m > maxv:
+                        maxv = m
+                        px = i
+                        py = j
+                    self._board.map[i][j] = TTT_NONE
+                    if maxv >= beta:
+                        return (maxv, px, py)
+
+                    if maxv > alpha:
+                        alpha = maxv
+        return (maxv, px, py)
+
+    def min(self, alpha, beta):
+        # We're initially setting it to 2 as worse than the worst case:
+        minv = 2
+        ai = TTT_X if self._player == TTT_X else TTT_O
+
+        qx = None
+        qy = None
+
+        if self._board.is_win():
+            return self._win()
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self._board.map[i][j] == TTT_NONE:
+                    self._board.map[i][j] = ai
+                    (m, max_i, max_j) = self.max(alpha, beta)
+                    if m < minv:
+                        minv = m
+                        qx = i
+                        qy = j
+                    self._board.map[i][j] = TTT_NONE
+                    if minv <= alpha:
+                        return (minv, qx, qy)
+
+                    if minv < beta:
+                        beta = minv
+        return (minv, qx, qy)

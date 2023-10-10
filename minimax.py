@@ -3,30 +3,39 @@ import random
 import sys
 import time
 
-from cap6635.agents.adversarialsearch.minimax import MiniMax
+from cap6635.agents.adversarialsearch.minimax import MiniMax, MiniMaxAlphaBeta
 from cap6635.environment.map import TicTacToe
 from cap6635.utilities.constants import TTT_NONE, TTT_X, TTT_O
 
 
 try:
-    starter = int(sys.argv[1])
+    algo = int(sys.argv[1])
+except IndexError:
+    algo = 0
+
+try:
+    starter = int(sys.argv[2])
 except IndexError:
     starter = random.choice([TTT_X, TTT_O])
 
 try:
-    auto = int(sys.argv[2])
+    auto = int(sys.argv[3])
 except IndexError:
     auto = 0
 
 totalTime = 0
 board = TicTacToe(3, 3)
-agent = MiniMax(board, starter)
+
+if algo == 0:
+    agent = MiniMaxAlphaBeta(board, starter)
+else:
+    agent = MiniMax(board, starter)
 
 
 def human(recommend, valid):
     global totalTime
     start = time.time()
-    (m, qx, qy) = recommend()
+    (m, qx, qy) = recommend(-2, 2)
     end = time.time()
     totalTime = totalTime + (end - start)
     print('Evaluation time: {}s'.format(round(end - start, 7)))
@@ -57,12 +66,12 @@ while True:
         px, py = human(agent.min, agent._board.is_valid)
         agent._board.map[px][py] = TTT_X
         agent._turn = TTT_O
-        (m, px, py) = agent.max()
+        (m, px, py) = agent.max(-2, 2)
         agent._board.map[px][py] = TTT_O
         agent._turn = TTT_X
     else:
         # If the AI starts
-        (m, px, py) = agent.max()
+        (m, px, py) = agent.max(-2, 2)
         agent._board.map[px][py] = TTT_X
         agent._turn = TTT_O
         px, py = human(agent.min, agent._board.is_valid)
