@@ -8,28 +8,28 @@ from cap6635.environment.map import TicTacToe
 from cap6635.utilities.constants import TTT_X, TTT_O
 
 
+totalTime = 0
+board = TicTacToe(3, 3)
+
+# Determine which algorithm to use
 try:
     algo = int(sys.argv[1])
 except IndexError:
     algo = 0
 
+# Determine who plays first
 try:
     starter = int(sys.argv[2])
 except IndexError:
     starter = random.choice([TTT_X, TTT_O])
 
+# Is there a Human? Or should it be AI vs. AI?
 try:
     auto = int(sys.argv[3])
 except IndexError:
     auto = 0
-
-totalTime = 0
-board = TicTacToe(3, 3)
-
-if algo == 0:
-    agent = MiniMaxAlphaBeta(board, starter)
-else:
-    agent = MiniMax(board, starter)
+algorithm = MiniMaxAlphaBeta if algo == 0 else MiniMax
+agent = algorithm(board, starter)
 
 
 def human(recommend, valid):
@@ -41,14 +41,16 @@ def human(recommend, valid):
     print('Evaluation time: {}s'.format(round(end - start, 7)))
     print('Recommended move: X = {}, Y = {}'.format(qx, qy))
 
+    if agent._board.is_win():
+        return 0, 0
     agent._board.print_board()
     while True:
         if not auto:
             px = int(input('Insert the X coordinate: '))
             py = int(input('Insert the Y coordinate: '))
         else:
-            px = random.choice([0, 1, 2])
-            py = random.choice([0, 1, 2])
+            px = qx
+            py = qy
         if valid(px, py):
             break
         else:
