@@ -30,20 +30,20 @@ Run the `vacuums.py` example with the optional paramters.  The output gets saved
 # 3 --> Goal-based Vacuum
 # World Height & Width defaults to random int (if not provided)
 
-python vacuums.py [type_of_agent] [height_of_world] [width_of_world]
+python 1_vacuums.py [type_of_agent] [height_of_world] [width_of_world]
 ```
 
 ### n-Queens
 
 ```bash
 # Hill Climbing
-python hill_climbing.py [number_of_queens]
+python 2_hill_climbing.py [number_of_queens]
 
 # Simulated Annealing
-python simulated_annealing.py [number_of_queens]
+python 3_simulated_annealing.py [number_of_queens]
 
 # Genetic Algorithm
-python genetic.py [number_of_queens]
+python 4_genetic.py [number_of_queens]
 ```
 
 ### Tic Tac Toe
@@ -52,8 +52,8 @@ python genetic.py [number_of_queens]
 # Minimax + Alpha-Beta Pruning
 # Algorithm {1 --> Minimax, 0 --> Alpha-Beta Pruning}
 # First Player {1 --> Human, 2 --> AI}
-python minimax.py [Algorithm] [First Player]
+python 5_minimax.py [Algorithm] [First Player]
 
 # e.g. Minimax (Alpha-Beta Pruning) - Player is X
-python minimax.py 0 1
+python 5_minimax.py 0 1
 ```
