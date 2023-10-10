@@ -1,5 +1,5 @@
 ---
-name: Vacuum Tests
+name: Example Program Tests
 
 on:
   push:
