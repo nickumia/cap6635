@@ -90,7 +90,7 @@ class TicTacToe(Map2D):
         for y in range(0, self._y):
             if self.map[0][y] != TTT_NONE and \
                self.map[0][y] == self.map[1][y] == self.map[2][y]:
-                self.win = self.map[y][0]
+                self.win = self.map[0][y]
                 return True
 
         # Diagonal win
