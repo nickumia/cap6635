@@ -1,5 +1,5 @@
 ---
-name: Vacuum Tests
+name: Example Program Tests
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
       - name: Install
         run: pip install -r requirements.txt
       - name: Clean
-        run: python vacuums.py ${{matrix.agent_type}} ${{matrix.height}} ${{matrix.width}}
+        run: python 1_vacuums.py ${{matrix.agent_type}} ${{matrix.height}} ${{matrix.width}}
       - name: Animation Output
         uses: actions/upload-artifact@v3
         if: always()
@@ -54,7 +54,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        program: ['hill_climbing.py', 'simulated_annealing.py', 'genetic.py']
+        program: ['2_hill_climbing.py', '3_simulated_annealing.py', '4_genetic.py']
         n_queens: [8, 16, 32]
         exclude:
           - program: 'genetic.py'
@@ -94,5 +94,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Install
         run: pip install -r requirements.txt
-      - name: Clean
-        run: python minimax.py ${{matrix.program}} ${{matrix.starter}} 1
+      - name: Play
+        run: python 5_minimax.py ${{matrix.program}} ${{matrix.starter}} 1
