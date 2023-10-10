@@ -80,3 +80,19 @@ jobs:
             ./simulated_annealing_32.gif
             ./genetic_8.gif
             ./genetic_16.gif
+
+  tictactoe:
+    name: ${{matrix.program}} TicTacToe Agent
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        program: [0, 1]
+        starter: [1, 2]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Clean
+        run: python minimax.py ${{matrix.program}} ${{matrix.starter}} 1
