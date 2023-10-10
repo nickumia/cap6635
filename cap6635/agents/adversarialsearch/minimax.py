@@ -27,11 +27,8 @@ class MiniMax:
 
     def max(self, dum1=0, dum2=0):
         # We're initially setting it to -2 as worse than the worst case:
-        if self._player == TTT_X:
-            ai = TTT_O
-        else:
-            ai = TTT_X
         maxv = -2
+        ai = TTT_O if self._player == TTT_X else TTT_X
 
         px = None
         py = None
@@ -53,11 +50,8 @@ class MiniMax:
 
     def min(self, dum1=0, dum2=0):
         # We're initially setting it to 2 as worse than the worst case:
-        if self._player == TTT_X:
-            ai = TTT_X
-        else:
-            ai = TTT_O
         minv = 2
+        ai = TTT_X if self._player == TTT_X else TTT_O
 
         qx = None
         qy = None

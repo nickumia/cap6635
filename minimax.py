@@ -77,3 +77,9 @@ while True:
         px, py = human(agent.min, agent._board.is_valid)
         agent._board.map[px][py] = TTT_O
         agent._turn = TTT_X
+
+agent._board.print_board()
+winner = 'X' if agent._board.win == 1 else 'O'
+winner = 'O' if agent._board.win == 2 else 'No one'
+
+print("%s wins!" % (winner))
