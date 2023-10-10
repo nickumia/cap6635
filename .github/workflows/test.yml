@@ -55,7 +55,7 @@ jobs:
       fail-fast: false
       matrix:
         program: ['2_hill_climbing.py', '3_simulated_annealing.py', '4_genetic.py']
-        n_queens: [8, 16, 32]
+        n_queens: [8, 12, 18]
         exclude:
           - program: 'genetic.py'
             n_queens: 32
