@@ -3,10 +3,10 @@ from cap6635.utilities.constants import TTT_NONE, TTT_X, TTT_O
 
 
 class MiniMax:
-    def __init__(self, board):
+    def __init__(self, board, player):
         self._board = board
-        # Player X always plays first
-        self.player_turn = TTT_X
+        self._player = player
+        self._turn = TTT_X
         self.count = 0
 
     def _win(self):
@@ -18,15 +18,21 @@ class MiniMax:
         # -1 - loss
         # 0  - a tie
         # 1  - win
-        if self._board.win == TTT_O:
+        ai = TTT_X if self._player == TTT_O else TTT_O
+        if self._board.win == ai:
             return (1, 0, 0)
-        elif self._board.win == TTT_X:
+        elif self._board.win == self._player:
             return (-1, 0, 0)
         return (0, 0, 0)
 
-    # Player 'O' is max, in this case AI
     def max(self):
         # We're initially setting it to -2 as worse than the worst case:
+        if self._player == TTT_X:
+            maxv = -2
+            ai = TTT_O
+        else:
+            maxv = 2
+            ai = TTT_X
         maxv = -2
 
         px = None
@@ -38,22 +44,23 @@ class MiniMax:
         for i in range(0, 3):
             for j in range(0, 3):
                 if self._board.map[i][j] == TTT_NONE:
-                    # On the empty field player 'O' makes a move and calls Min
-                    # That's one branch of the game tree.
-                    self._board.map[i][j] = TTT_O
+                    self._board.map[i][j] = ai
                     (m, min_i, min_j) = self.min()
-                    # Fixing the maxv value if needed
                     if m > maxv:
                         maxv = m
                         px = i
                         py = j
-                    # Setting back the field to empty
                     self._board.map[i][j] = TTT_NONE
         return (maxv, px, py)
 
-    # Player 'X' is min, in this case human
     def min(self):
         # We're initially setting it to 2 as worse than the worst case:
+        if self._player == TTT_X:
+            minv = 2
+            ai = TTT_X
+        else:
+            minv = -2
+            ai = TTT_O
         minv = 2
 
         qx = None
@@ -65,7 +72,7 @@ class MiniMax:
         for i in range(0, 3):
             for j in range(0, 3):
                 if self._board.map[i][j] == TTT_NONE:
-                    self._board.map[i][j] = TTT_X
+                    self._board.map[i][j] = ai
                     (m, max_i, max_j) = self.max()
                     if m < minv:
                         minv = m
