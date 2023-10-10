@@ -5,7 +5,7 @@ import time
 
 from cap6635.agents.adversarialsearch.minimax import MiniMax, MiniMaxAlphaBeta
 from cap6635.environment.map import TicTacToe
-from cap6635.utilities.constants import TTT_NONE, TTT_X, TTT_O
+from cap6635.utilities.constants import TTT_X, TTT_O
 
 
 try:
