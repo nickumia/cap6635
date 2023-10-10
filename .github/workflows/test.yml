@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
-        run: pip install -r requirements-dev.txt
+        run: pip install coverage flake8 pytest
       - name: Lint
         run: make lint
 
@@ -35,7 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
-        run: pip install -r requirements.txt
+        run: pip install .
       - name: Clean
         run: python 1_vacuums.py ${{matrix.agent_type}} ${{matrix.height}} ${{matrix.width}}
       - name: Animation Output
@@ -63,7 +63,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
-        run: pip install -r requirements.txt
+        run: pip install .
       - name: Clean
         run: python ${{matrix.program}} ${{matrix.n_queens}}
       - name: Animation Output
@@ -93,6 +93,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
-        run: pip install -r requirements.txt
+        run: pip install .
       - name: Play
         run: python 5_minimax.py ${{matrix.program}} ${{matrix.starter}} 1
